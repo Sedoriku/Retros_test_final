@@ -1,0 +1,210 @@
+/*bordure gauche du titre de la page*/
+#page_title {
+border-color: #CA583E;
+}
+
+/*image pour qu'elle soit au dessus de tout*/
+img {
+position: relative;
+z-index: 5;
+}
+
+/*taille police de toutes la page*/
+div, ul li a{font-size: 14px;}
+
+
+/***STATUT + DATE****/
+#info p{
+text-align: center;
+font-size: 15px;
+/*padding: 3px 75px 3px; /*pour placer les texte au milieu*/
+width: 100%;
+/*position: absolute;*/
+}
+/*2ème enfant de #info --> premier p (statut)*/
+#info p:nth-child(2){ 
+top: 130px;
+}
+/*2ème enfant de #info --> dernier p(date)*/
+#info p:last-child{ 
+top: 200px;
+}
+
+
+
+/**********OEUVRES + LIEUX FREQUENTE***********/
+/*padding pour bio + oeuvre */
+#biographie, #oeuvres, .lieu_frequente{
+padding: 0 0 12px 0;
+text-align: justify;
+background-color: white;
+}
+
+.lieu_frequente {
+	margin-bottom: 10px;
+	padding-bottom: 30px;
+}
+
+.lieu_frequente ul {
+	list-style: none;
+}
+
+.lieu_frequente img {
+	display: block;
+	margin: 0 auto;
+	margin-top: -25px;
+	margin-bottom: -10px;
+}
+
+#biographie, #oeuvres {
+	margin-bottom: -25px;
+
+}
+
+#biographie {
+	padding: 12px 12px;
+}
+
+#biographie .vie {
+	background: url("../img/icone-toureiffel.png") no-repeat 50% 80%;
+	height: 60px;
+}
+
+#biographie .perso-paris {
+	background: url('../img/icone-perso-zoom.png') no-repeat 50% 80%;
+	height: 60px;
+}
+
+
+/*pour la partie Amazon*/
+#amazon {
+list-style: none;
+color: black;
+text-align: center;
+margin-left: -25px;
+}
+
+/*emplacement de l'img amazon*/
+#amazon img {
+margin: -10px 0 10px 0;
+}
+
+/*liens oeuvres */
+#oeuvres ul li a {
+color :#e76952;
+font-weight: lighter;
+}
+
+#oeuvres ul li a:active {
+color :#d0583c;
+}
+
+#oeuvres .icone {
+	margin: 0 auto;
+	display: block;
+	margin-top: -15px;
+	margin-bottom: -10px;
+}
+
+
+
+/*****************LIEUX FREQUENTES*****************/
+
+/*les liens de la listview sans coin arrondi*/
+#lieu_frequente .ui-controlgroup-controls li a{
+border-radius: 0;
+}
+
+
+/***BUUUUUG, ça change la couleur du bouton menu***/
+/*lien des lieux fréquentés*/
+.ui-page-theme-a .ui-btn{
+background-color: white;
+font-weight: lighter;
+color: #333;
+}
+
+.ui-page-theme-a .ui-btn:active{
+background-color: #3f5e5e;
+color: white;
+}
+
+
+/****** NEW ******************/
+
+#info {
+	padding: 5px;
+	background-color: white;
+	border-top: 3px solid rgb(110,153,123);
+}
+
+#info .small-font {
+	font-size: 1.1em;
+}
+
+.dates {
+	margin-top: -15px;
+}
+
+h3 {
+	text-align: center;
+	border-top: 3px solid #6e997b;
+	/*background-color: #6e997b;*/
+	padding-top: 5px;
+}
+
+#info img {
+	display: block;
+	margin: 0 auto;
+}
+
+#description-zone {
+	background-color: white;
+	margin-top: -8px;
+}
+
+#description-zone h4 {
+	text-align: center;
+}
+
+#type-perso-zone img {
+	background-color: white;
+	
+	}
+
+#type-perso-zone {
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+#type-perso-zone p {
+	margin-top: 0px;
+}
+
+
+.white {
+	color: white;
+}
+
+#perso-aime {
+	background-color: #CA583E;
+	padding: 5px 0 8px 0;
+	margin-top: 10px;
+}
+
+#perso-aime img {
+	margin: 0 auto;
+	display: block;
+}
+
+#perso-aime ul {
+	margin: 0;
+	padding: 0;
+	color: white;
+	text-align: center;
+}
+
+
+.epoque-zone {
+	text-align: center;
+}

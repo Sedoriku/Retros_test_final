@@ -1,0 +1,14 @@
+/*bordure gauche du titre de la page*/
+.border_arr {
+border-color: #6C96A4;
+}
+
+/*texte des boutons de la listeview*/
+.ui-listview > li > a.ui-btn {
+text-align: center;
+}
+
+#ul_liste_arr li ul li a img {
+	margin: 0 auto;
+	margin-top: 10px;
+}

@@ -1,0 +1,23 @@
+#page_title{
+border-left: 7px solid #66929f;
+}
+
+form{
+	padding: 5px; /*marge extérieur*/
+}
+
+#logo {
+width: 50%; /*taille logo*/
+margin: 5% 25%; /*centrer le logo*/
+}
+
+#button_co {
+text-align: center; /*centrer le bouton*/
+}
+
+#button_co input{
+background-color: red; /*pour center le bouton*/
+color: #E66A52;
+}
+
+a:link, a:visited {color: #e76952;}

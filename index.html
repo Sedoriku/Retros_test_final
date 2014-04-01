@@ -1,0 +1,94 @@
+<!-- PAGE D'ACCUEIL AVEC UN MENU AVEC DES RACOURCIS -->
+
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>Menu principal</title> 
+		<meta charset="utf-8" />
+		<!-- permet d'adapter le desgin à son support -->
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+		  
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+	  
+		<!--script-->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	</head>
+	 
+	<body> 
+		<!-- data-role=page : la page afficher sur le navigateur -->
+		<div data-role="page" id="menu_principal">
+			<!-- date-role=header : créer une barre sur le haut de la page -->
+			<div data-role="header" data-position="fixed" id="menu_fixe"> 
+			
+		<!-- data-icon="nom_icone" ça affiche l'icône qui porte ce nom-->	
+		<!-- data-iconpos="notext" permet de ne pas afficher le nom du bouton, mais on peut en mettre un pour les lecteurs d'écran -->	
+		<!-- data-corners="false" ça enlèves les coins arrondis du bouton/icone -->	
+
+			<!-- bouton qui fait sortir le menu de gauche-->
+			<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext" data-corners="false">Menu</a>
+				<h1><a href="index.html">Rétrospective</a></h1>
+				<div id="con-zone"></div>
+			</div><!-- /header -->
+
+			<div data-role="content" id="content">	
+		<div data-role="navbar"  id="menu">
+			<ul class="ui-grid-a">
+			<!-- rel="external" : permet de forcer le rafraichissement de la page-->
+				<li class="ui-block-a"><a href="liste_lieux.html" rel="external" id="lieux"><img src="img/menu/icon_lieux.png" alt="" style="height:115px"/>Lieux</a></li>
+				<li class="ui-block-b"><a href="proximite.html" rel="external" id="proxi"><img src="img/menu/icon_proximite.png" alt="" style="height:115px"/>A proximité</a></li>
+				<li class="ui-block-a"><a href="liste_persos.html" rel="external" id="perso"><img src="img/menu/icon_perso.png" alt="" style="height:115px"/>Personnage</a></li>
+				<li class="ui-block-b"><a href="liste_epoques.html" rel="external" id="epoque"><img src="img/menu/icon_epoque.png" alt="" style="height:115px"/>Epoque</a></li>
+				<li class="ui-block-a"><a href="liste_arr.html" rel="external" id="arr"><img src="img/menu/icon_arr.png" alt="" style="height:115px"/>Arrondissement</a></li>
+				<li class="ui-block-b"><a href="ajout_lieu.html" rel="external" id="ajout_lieux"><img src="img/menu/icon_ajout_lieu.png" alt="" style="height:115px" />Ajouter un lieu</a></li>
+			</ul>
+		</div><!-- /navbar -->
+			</div><!-- /content -->
+			
+			
+			<!-- MENU de GAUCHE -->
+			<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+					<ul data-role='listview' data-icon="false">
+						<li>Fiches
+							<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+							
+							<li><a href="liste_persos.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+							
+							<li><a href="liste_epoques.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+							
+							<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+
+							<li><a href="proximite.html" rel="external"><img src="img/menu/menu_gauche/icon_small_proximite.png" alt="">Proximité</a></li>
+							
+							<li><a href="plan_metro.html" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+						
+						<li>Communauté
+							<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+							
+							<li><a href="evenements.html" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+						
+						
+						<li>Compte
+							<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+							
+							<li><a href="favoris.html" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+							
+							<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+					</ul>
+			</div><!-- /MENU de GAUCHE -->
+			
+		</div><!-- /page -->
+
+
+		
+		<!-- afficher login connexion -->
+		<script text="text/javascript" src="js/affiche-login-session.js"></script>
+		
+	</body>
+</html>

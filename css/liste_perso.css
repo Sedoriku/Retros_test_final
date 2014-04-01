@@ -1,0 +1,17 @@
+/*bordure gauche du titre de la page*/
+#page_title {
+border-color: #CA583E;
+}
+
+#ul_liste_persotype li ul {
+	list-style: none;
+}
+
+.ui-input-text {
+	width: 60%;
+	display: inline-block;
+}
+
+#search-bar {
+	margin-left: 2%;
+}

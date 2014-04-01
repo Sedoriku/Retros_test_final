@@ -1,0 +1,107 @@
+.bloc_event{
+background-color: white;
+border-top: 2px solid #6E997B;
+text-align: center;
+}
+
+.expo{
+color: #6E997B;
+display: inline-block;
+}
+
+.bloc_event h2{
+display: inline-block;
+font-size: 1.2em;
+margin-left: 10%
+
+}
+
+.date_event{
+font-size: 1.2em;
+display: inline-block;
+margin-left: 10%
+}
+
+.month_event{
+color: #80B57C;
+text-transform: uppercase;
+}
+
+
+.spectacles{
+color: #DA9939;
+display: inline-block;
+}
+
+
+.bloc_event_spec{
+background-color: white;
+border-top: 2px solid #DA9939;
+text-align: center;
+}
+
+
+.bloc_event_spec h2{
+display: inline-block;
+font-size: 1.2em;
+margin-left: 10%
+
+}
+
+.date_event_spec{
+font-size: 1.2em;
+display: inline-block;
+margin-left: 10%
+}
+
+.month_event_spec{
+color: #DA9939;
+text-transform: uppercase;
+}
+
+
+
+
+.conf{
+color: #CA583E;
+display: inline-block;
+}
+
+
+.bloc_event_conf{
+background-color: white;
+border-top: 2px solid #CA583E;
+text-align: center;
+}
+
+
+.bloc_event_conf h2{
+display: inline-block;
+font-size: 1.2em;
+margin-left: 10%
+
+}
+
+.date_event_conf{
+font-size: 1.2em;
+display: inline-block;
+margin-left: 10%
+}
+
+.month_event_conf{
+color: #CA583E;
+text-transform: uppercase;
+}
+
+
+
+.infos-event{
+padding-left: 20px;
+padding-right: 20px;
+}
+
+.description-event{
+text-align: justify;
+padding-left: 20px;
+padding-right: 20px;
+}

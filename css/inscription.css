@@ -1,0 +1,22 @@
+#page_title{
+border-left: 7px solid #66929f;
+}
+
+form{
+	padding: 5px; /*marge extérieur*/
+}
+
+
+#button_cancel_sign {
+   text-align: center; /*centrer les boutons*/
+}
+
+#button_cancel_sign input{
+background-color: red; /*pour center le bouton*/
+color: #E66A52;
+}
+
+#connexion-zone {
+	margin-top: -20px;
+	text-align: center;
+}

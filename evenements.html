@@ -1,0 +1,353 @@
+<!-- PAGE DANS LAQUELLE ON VA AFFICHER DES EVENEMENTS AYANT LIEU DANS PARIS DE MANIERE STATIQUE. ELLE SERA PAR LA SUITE AMELIOREE ET IMPLEMENTEE DANS LA BDD -->
+<!-- Utilisation d'HTML, CSS et jQuery -->
+
+<!DOCTYPE html> 
+<html> 
+	
+	<head> 
+		<title>Evènement</title> <!--A CHANGER SELON LE NOM-->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+		  
+		  
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+		  
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="css/perso.css" />
+		<link rel="stylesheet" href="css/evenements.css" />
+		
+		<!--script-->  
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	</head> 
+	
+	<body> 
+
+		<div data-role="page">
+
+			<div data-role="header" data-position="fixed" id="menu_fixe" >
+			<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+				<h1><a href="index.html">Rétrospective</a></h1>
+			</div><!-- /header -->
+			
+			<!-- MENU de GAUCHE -->
+			<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+					<ul data-role='listview' data-icon="false">
+						<li>Fiches
+							<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+							
+							<li><a href="liste_persos.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+							
+							<li><a href="liste_epoques.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+							
+							<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+
+							<li><a href="proximite.html" rel="external"><img src="img/menu/menu_gauche/icon_small_proximite.png" alt="">Proximité</a></li>
+							
+							<li><a href="plan_metro.html" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+						
+						<li>Communauté
+							<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+							
+							<li><a href="evenements.html" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+						
+						
+						<li>Compte
+							<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+							
+							<li><a href="favoris.html" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+							
+							<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+					</ul>
+			</div><!-- /MENU de GAUCHE -->
+			
+			<div data-role="content">
+				<div id="page_title">
+				<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+					<h1>Evénements</h1>
+					<div id="con-zone"></div>
+				</div><!-- /page_title -->
+				
+				<br/>
+				
+				<img src="img/evenements/icon-round-expo.png" alt="" />
+				<h2 class="expo">Expositions & galeries</h2>
+				<p>Explorez la capitale à travers des expositions retraçant une partie de l'histoire de Paris !</p>
+					
+					
+				<div class="bloc_event">
+					
+					<h2>Henri Cartier-Bresson</h2>
+					<p class="date_event">jusqu'au<br/>09<br/><span class="month_event">juin</span></p>
+					<br/>
+					<a class="ensavoirplus-expo1" href="#">Voir plus</a>
+					<a class="ensavoirmoins-expo1" href="#">Voir moins</a>
+					
+					<div class="blocplus-expo1">
+					
+						<div class="infos-event">
+					
+							<img src="img/evenements/icon-date.png" alt="" />	
+							Du 12/02/2014 au 09/06/2014
+							<br/><br/>
+							 
+							<img src="img/evenements/icon-map.png" alt="" />	
+							Centre Georges Pompidou<br/>
+							Place Beaubourg<br/>
+							75004 Paris 4
+							<br/>
+							
+							<img src="img/evenements/icon-tarif.png" alt="" />
+							Tarifs : 13€ | 11€ tarif réduit	<br/>
+						
+							<img src="img/evenements/icon-clock.png" alt="" />	
+							Horaires : 11h-21h | fermé le mardi 
+
+							<br/><br/>
+						</div>
+						
+						<p class="description-event">
+						Le Centre Pompidou rend hommage à Henri Cartier-Bresson (1908-2004) lors d'une rétrospective unique du 12 Février au 9 Juin 2014 : dix ans seulement après sa disparition, plus de cinq cents photographies et documents personnels sont réunis pour rendre compte du parcours et de toutes les réalisations de "l'Oeil du XXe siècle", qui a tant contribué à la refonte de la photographie pendant ses soixante-dix ans de carrière !
+						</p>
+					
+					</div><!-- /blocplus-expo1 -->
+				
+					<br/><br/>
+				</div><!-- /bloc_event -->
+				
+				<br/>
+				
+				<div class="bloc_event">
+					
+					<h2>Le Voyage de l'Obélisque</h2>
+					<p class="date_event">jusqu'au<br/>06<br/><span class="month_event">juillet</span></p>
+					<br/>
+					<a class="ensavoirplus-expo2" href="#">Voir plus</a>
+					<a class="ensavoirmoins-expo2" href="#">Voir moins</a>
+					
+					<div class="blocplus-expo2">
+					
+						<div class="infos-event">
+					
+							<img src="img/evenements/icon-date.png" alt="" />	
+							Du 12/02/2014 au 06/07/2014 
+							<br/><br/>
+							 
+							<img src="img/evenements/icon-map.png" alt="" />	
+							17, place du Trocadéro et du 11 Novembre<br/>
+							75016 Paris 16<br/>
+							<br/>
+							
+							<img src="img/evenements/icon-tarif.png" alt="" />
+							Gratuit (handicapés, accompagnateur)<br/>
+							10 euros (tarif normal)<br/>
+							2 euros (enfants -7ans)<br/>
+							5 euros (enfants 7-18ans)<br/>
+							8 euros (tarif étudiants)<br/>
+								
+							<img src="img/evenements/icon-clock.png" alt="" />	
+							Horaires : 10h-18h semaine | 10h-19h week-end | fermé le mardi 
+							<br/><br/>
+						
+						</div>
+						
+						<p class="description-event">
+						Le Musée de la Marine revient sur le Voyage de l'Obélisque lors d'une exposition visible du 12 Février au 6 Juillet 2014 : offert par l'Egypte à la France en 1830, l'Obélisque de la Place de la Concorde est un vestige de l'Egypte antique, qui a dû être transporté par voie fluviale depuis le temple de Louxor à Paris. Pour la première fois, une exposition retrace le parcours extraordinaire de ce monolithique de 230 tonnes qui a traversé les mers et les terres pour arriver dans notre capitale !
+						</p>
+					
+					</div>
+					<br/><br/>
+				</div><!-- /bloc_event -->
+			
+				<br/>
+				
+				<img src="img/evenements/icon-round-spec.png" alt="" />
+				<h2 class="spectacles">Spectacles & concerts</h2>
+				<p>Vibrez au son des voix qui ont fait de Paris la capitale mondiale de la culture !</p>
+				
+				<div class="bloc_event_spec">
+					
+					<h2>L'Avare</h2>
+					<p class="date_event_spec">02<br/><span class="month_event_spec">avril</span></p>
+					<br/>
+					<a class="ensavoirplus-spec1" href="#">Voir plus</a>
+					<a class="ensavoirmoins-spec1" href="#">Voir moins</a>
+					
+					<div class="blocplus-spec1">
+					
+						<div class="infos-event">
+					
+							<img src="img/evenements/icon-date-jaune.png" alt="" />	
+							Date de début : 2 avril 2014 | Date de fin : 8 avril 2014<br/>
+							 
+							<img src="img/evenements/icon-map-jaune.png" alt="" />
+							Espace Marais <br/>
+							22 rue Beautreillis<br/>
+							75004 Paris 4e<br/>
+							
+							<img src="img/evenements/icon-euro-jaune.png" alt="" />
+							Tarifs : places de 23,50€ à 39,50€
+							<br/>
+								
+							<img src="img/evenements/icon-clock-jaune.png" alt="" />	
+							Programmation : Dimanche : 16h.
+							<br/><br/>
+						
+						</div>
+						
+						<p class="description-event">
+						Harpagon court, rit, danse. Il fête son argent ! L'avare est le personnage heureux d'une farce horrible ! Drame d'une famille disloquée par la folie d'un patriarche égotique, tragédie de l'isolement, de la vieillesse et du pouvoir abusif des pères, il doit néanmoins faire rire. "C'est la comédie noire de l'argent qui rend fou, qui conduit au crime, au suicide" confirme Catherine Hiegel. 
+						</p>
+					
+					</div>
+					<br/><br/>
+
+				</div><!-- /bloc_eventçspec -->
+				
+				<br/>
+				
+				<div class="bloc_event_spec">
+					
+					<h2>Tartuffe</h2>
+					<p class="date_event_spec">06<br/><span class="month_event_spec">juin</span></p>
+					<br/>
+					<a class="ensavoirplus-spec2" href="#">Voir plus</a>
+					<a class="ensavoirmoins-spec2" href="#">Voir moins</a>
+					
+					<div class="blocplus-spec2">
+					
+						<div class="infos-event">
+					
+							<img src="img/evenements/icon-date-jaune.png" alt="" />	
+							Date de début : 26 mars 2014 | Date de fin : 6 juin 2014<br/>
+							 
+							<img src="img/evenements/icon-map-jaune.png" alt="" />
+							Odéon, 1 rue André Suarès<br/>
+							75017 Paris 17e<br/>
+							
+							<img src="img/evenements/icon-euro-jaune.png" alt="" />
+							Tarifs : places de 6 à 36€
+							<br/>
+								
+							<img src="img/evenements/icon-clock-jaune.png" alt="" />	
+							Tous les jours sauf dimanche, lundi : 20h. Dimanche : 15h. 
+							<br/><br/>
+						
+						</div>
+						
+						<p class="description-event">
+						Orgon, un père de famille honnête et bougon, s'entiche à en perdre la raison, d'un bigot présumé, nommé Tartuffe. Contre l'avis de ses enfants, de ses amis, de sa femme, il lui voue un culte insensé, en perdant tout sens commun. Sous la houlette de Dorine, servante rusée et dégourdie, Elmire l'épouse convoitée, Marianne et Valère les jeunes amoureux, Damis le fougueux et Cléante le sage, vont unir leurs forces pour démasquer l'imposteur et ouvrir les yeux d'Orgon sur les intentions de son protégé. 
+						</p>
+					
+					</div>
+					<br/><br/>
+				</div<!-- /bloc_event_spec -->
+				
+				<br/>
+				
+				<img src="img/evenements/icon-round-conf.png" alt="" />
+				<h2 class="conf">Conférences & débats</h2>
+				<p>Discutez, débatez à l'instar des philosophes et écrivains !</p>
+				
+				<div class="bloc_event_conf">
+					
+					<h2>Lundis Philo</h2>
+					<p class="date_event_conf">tous les<br/><span class="month_event_conf">lundis</span></p>
+					<br/>
+					<a class="ensavoirplus-conf1" href="#">Voir plus</a>
+					<a class="ensavoirmoins-conf1" href="#">Voir moins</a>
+					
+					<div class="blocplus-conf1">
+					
+						<div class="infos-event">
+					
+							<img src="img/evenements/icon-date-rouge.png" alt="" />
+							Date de début : lundi 16 septembre 2013 | Date de fin : lundi 30 juin 2014<br/>
+							 
+							<img src="img/evenements/icon-map-rouge.png" alt="" />
+							MK2 Hautefeuille<br/>
+							7 Rue Hautefeuille<br/>
+							Paris, 75006<br/>
+
+							
+							<img src="img/evenements/icon-euro-rouge.png" alt="" />
+							Tarifs : 15 € | Etudiants/demandeurs d’emplois : 9,00€
+							<br/>
+								
+							<img src="img/evenements/icon-clock-rouge.png" alt="" />	
+							Tous les lundis à 18h
+							<br/><br/>
+						
+						</div>
+						
+						<p class="description-event">
+						Les « Lundis Philo » de Charles Pépin font leur rentrée pour une nouvelle saison tous les lundis à 18h00 au MK2 Hautefeuille à partir du 16 septembre 2013. L’occasion est donnée aux spectateurs, amateurs ou simples curieux de philosophie de réfléchir et d’échanger ensemble sur des thèmes ancrés dans la réalité: « Qu’est-ce qu’être fou de joie ? », « La vie s’improvise t elle ? », « Peut-on désirer sans souffrir ? », « Qu’est ce qu’aimer ? …Les pensées de grands philosophes et psychanalystes tels que Platon, Nietzsche, Freud ou Lacan seront abordées, tout autant que les témoignages de grands contemporains, acteurs du monde d’aujourd’hui : sportifs, musiciens…
+						Ce nouveau programme des « Lundis Philo » est une proposition de sortie culturelle accessible, originale, et idéale pour une meilleure appréhension de notre propre existence.
+						</p>
+					
+					</div>
+					<br/><br/>
+
+				</div><!-- /bloc_event_conf -->
+				
+				<br/>
+				
+				<div class="bloc_event_conf">
+					
+					<h2>Mardis des Bernardins</h2>
+					<p class="date_event_conf">tous les<br/><span class="month_event_conf">mardis</span></p>
+					<br/>
+					<a class="ensavoirplus-conf2" href="#">Voir plus</a>
+					<a class="ensavoirmoins-conf2" href="#">Voir moins</a>
+					
+					<div class="blocplus-conf2">
+					
+						<div class="infos-event">
+					
+							<img src="img/evenements/icon-date-rouge.png" alt="" />
+							Date de début : mardi 10 septembre 2013 | Date de fin : mardi 24 juin 2014<br/>
+							 
+							<img src="img/evenements/icon-map-rouge.png" alt="" />
+							Collège des Bernardins<br/>
+							20 rue De Poissy<br/>
+							Paris, 75005<br/>
+
+							
+							<img src="img/evenements/icon-euro-rouge.png" alt="" />
+							Tarifs : 15 € | Etudiants/demandeurs d’emplois : 9,00€
+							5 euros | Tarif réduit (demandeurs d'emploi, minima sociaux) : 3 euros | Gratuit pour les moins de 26 ans
+							<br/>
+								
+							<img src="img/evenements/icon-clock-rouge.png" alt="" />	
+							Tous les mardis de 20h à 22h
+							<br/><br/>
+						
+						</div>
+						
+						<p class="description-event">
+						Le mardi, de 20h à 21h45, ces tables rondes interrogent notre société en débattant autour de grands thèmes comme l’entreprise, la culture, l’art ou les religions.
+						Pour départager l’information superficielle des enjeux véritables, pour dégager des perspectives et anticiper l’avenir, elles n’ont qu’un seul parti pris : replacer l’homme au centre des enjeux de notre temps. Parce que des sujets essentiels sont souvent abordés de manière trop consensuelle, les équipes des Mardis des Bernardins vous proposent de renouer avec l’esprit de la disputatio médiévale, à travers 52 minutes de débat filmé et 52 minutes d’échanges avec le public. 
+
+						</p>
+					
+					</div>
+					<br/><br/>
+				</div><!-- /bloc_event_conf -->
+			
+			</div><!-- /content -->
+		</div><!-- /page -->
+
+		<!-- script pour afficher menu de gauche  -->
+		<script text="text/javascript" src="js/evenements.js"></script> 
+		
+		<!-- afficher login connexion -->
+		<script text="text/javascript" src="js/affiche-login-session.js"></script> 
+
+	</body>
+</html>

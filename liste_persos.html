@@ -1,0 +1,149 @@
+<!-- PAGE DANS LAQUELLE ON VA AFFICHER DYNAMIQUEMENT LA LISTE DES PERSONNAGES, PUIS AVEC UN SYSTEME D'ACCORDEON, LES FICHES CORRESPONDANT AU PERSONNAGE SUR LEQUEL ON A CLIQUE -->
+<!-- affichage dynamique grâce à jQuery (json, ajax) et PHP -->
+
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>Liste personnages</title> 
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+		  
+		  
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+		  
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="css/liste_perso.css" />
+			<link rel="stylesheet" href="css/perso.css" />
+
+
+		<!--script-->  
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	</head> 
+	
+	<body> 
+
+		<div data-role="page">
+
+			<div data-role="header" data-position="fixed" id="menu_fixe" >
+				<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+				<h1><a href="index.html">Rétrospective</a></h1>
+				<div id="con-zone"></div>
+
+					<!-- barre derecherche -->
+					<form id="search-bar">
+						<label for="searchkey"></label>
+						<input type="text" name="searchkey" id="searchkey" placeholder="Mot clé (personnage)" data-mini="true"/>
+
+						<input type="submit" name="ok" value="Rechercher" id="search"/>
+					</form>
+				
+			</div><!-- /header -->
+			
+			<!-- MENU de GAUCHE -->
+			<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+					<ul data-role='listview' data-icon="false">
+						<li>Fiches
+							<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+							
+							<li><a href="liste_persos.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+							
+							<li><a href="liste_epoques.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+							
+							<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+
+							<li><a href="proximite.html" rel="external"><img src="img/menu/menu_gauche/icon_small_proximite.png" alt="">Proximité</a></li>
+							
+							<li><a href="plan_metro.html" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+						
+						<li>Communauté
+							<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+							
+							<li><a href="evenements.html" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+						
+						
+						<li>Compte
+							<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+							
+							<li><a href="favoris.html" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+							
+							<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+					</ul>
+			</div><!-- /MENU de GAUCHE -->
+			
+			<div data-role="content">
+				<div id="page_title">
+					<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+					<h1>Personnages</h1>
+				</div><!-- /page_title -->
+
+			
+				
+				<!--ONGLET Liste perso A-Z / Lite des types de perso-->
+				<div id="onglet" data-role="navbar">
+					<ul>
+						<li><a id="li_a_z" href="#liste_persoAZ">De A à Z</a></li>
+						<li><a id="li_types_perso" href="#liste_persotype">Par type</a></li>
+					</ul>
+				</div><!-- /Onglet navbar-->
+				
+				<p class="resultat-titre"></p>
+				<p class="nb-resultats"></p>
+				<div class="contenu_recherche" id="recherche-resultat">
+					<ul data-role='listview' data-icon="false"></ul>
+				</div>
+					
+					
+					<!-- CONTENU Liste perso A-Z -->	
+					<div class="contenu_liste" id="liste_persoAZ">
+							
+					<br/>
+						<ul data-role='listview' data-icon="false" id="ul_liste_persoAZ">
+							<!-- liste dynamique des personnages de A-Z-->
+						</ul>
+					</div><!-- /liste_persoAZ-->
+
+					
+					<!-- CONTENU Liste des types de perso -->	
+					<div class="contenu_liste" id="liste_persotype">
+					
+					<br/>			
+						<ul data-role='listview' data-icon="false" id="ul_liste_persotype">
+							<!-- liste dynamique des personnages par type-->
+						</ul>
+					</div><!-- /liste_persotype-->			
+
+					
+			</div><!-- /content -->
+		</div><!-- /page -->
+
+		<!-- script pour afficher menu de gauche  -->
+		<script text="text/javascript" src="js/onglet.js"></script> 
+			
+		<!-- afficher login connexion -->
+		<script text="text/javascript" src="js/affiche-login-session.js"></script> 		
+			
+		<!-- liste perso-->
+		<script text="text/javascript" src="js/liste-persos.js"></script> 
+		<script text="text/javascript" src="js/liste-persos-type.js"></script> 
+			
+			
+			
+		<!-- Barre de recherche des personnages -->
+		<script text="text/javascript" src="js/cherche-perso.js"></script> 
+			
+		<!--base-->
+		<script text="text/javascript" src="js/var_app.js"></script> 
+		<script text="text/javascript" src="js/zepto.min.js"></script> 
+		<script>
+			app.initialize();
+		</script>
+	
+	</body>
+</html>

@@ -1,0 +1,39 @@
+/*bordure gauche du titre de la page*/
+#page_title {
+	border-color: #98d669;
+}
+
+form img {
+    margin-left: 30%; /*pour center l'img*/
+	width: 35%; /*taille de l'image*/
+}
+
+/*taille & centrer, boutons liste arr + liste note*/
+#form_arr-button, #form_note-button {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+/*espace entre les boutons */
+form .ui-field-contain, .ui-field-contain {
+	border-bottom: none; /*supprime les traits sous chaque fieldcontain*/
+	padding-bottom: 2px;
+}
+
+
+
+/*centrer le bouton*/
+#button_proposer{
+	//width: 30%;
+	//margin: 0 auto;
+    text-align: center;
+}
+
+/*couleur de fond du bouton*/
+#button_proposer input{
+	background: red;
+}
+
+.ui-content {
+    margin-right: -22px;
+}

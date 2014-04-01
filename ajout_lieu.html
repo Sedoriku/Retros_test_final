@@ -1,0 +1,202 @@
+<!-- PAGE DANS LAQUELLE LES UTILISATEURS PEUVENT PROPOSER DES LIEUX POUR ENRICHIR NOTRE BDD -->
+<!-- Utilisation jQuery (json, ajax) et PHP pour enregistrer dans la bdd les données saisies et par mail -->
+
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title>Ajouter un lieu</title> 
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+		  
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+		  
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="css/ajout_lieu.css" />
+
+		<!--script-->
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	</head> 
+	
+	<body> 
+
+		<div data-role="page">
+			<div data-role="header" data-position="fixed" id="menu_fixe">
+			<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+				<h1><a href="index.html">Rétrospective</a></h1>
+				<div id="con-zone"></div>
+			</div><!-- /header -->
+			
+			<!-- MENU de GAUCHE -->
+			<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+					<ul data-role='listview' data-icon="false">
+						<li>Fiches
+							<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+							
+							<li><a href="liste_persos.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+							
+							<li><a href="liste_epoques.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+							
+							<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+
+							<li><a href="proximite.html" rel="external"><img src="img/menu/menu_gauche/icon_small_proximite.png" alt="">Proximité</a></li>
+							
+							<li><a href="plan_metro.html" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+						
+						<li>Communauté
+							<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+							
+							<li><a href="evenements.html" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+						
+						
+						<li>Compte
+							<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+							
+							<li><a href="favoris.html" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+							
+							<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+					</ul>
+			</div><!-- /MENU de GAUCHE -->
+			
+			
+			<div data-role="content">	
+				<div id="page_title" >
+
+					<!-- data-rel="back" permet de faire un retour en arrière sur la page d'où l'on vient même si on a pointé le href vers une page précise -->
+					<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+					<h1>Ajouter un lieu</h1>
+				</div><!-- /page_title -->
+
+				<!-- enctype="multipart/form-data" : récupérer tous type de données (ex: binaire)-->
+				<form method="POST" enctype="multipart/form-data"> 
+					<p class="nb">*mention obligatoire</p>
+						<img src="img/icon_ajout_lieu.png" />
+					
+				<!--les data-role="fieldcontain" : aligne le label au input/select-->
+				<!--les data-role="true" permettent de rendre les boutons/inputs/select plus petits-->
+					<!--nom du lieu-->
+					<div data-role="fieldcontain">
+						<label for="form_name" >Nom du lieu*</label>
+						<input type="text" name="form_name" id="form_name" data-mini="true" />
+					</div>
+						
+					<!-- Type de lieu-->
+					<div data-role="fieldcontain">
+						<label for="form_lieu" >Type de lieu*</label>
+						<input type="text" name="form_lieu" id="form_lieu" data-mini="true" />
+					</div>
+
+					<!--n° et rue-->		
+					<div data-role="fieldcontain">
+						<label for="form_rue">N° et rue*</label>
+						<input type="text" name="form_rue" id="form_rue" data-mini="true" />
+					</div>
+						
+					<!--arr-->
+					<div data-role="fieldcontain">
+						<label for="form_arr">Arrondissement*</label>
+						<!-- data-native-menu="false" : avoir le style jqm d'une select -->
+						<select name="form_arr" id="form_arr" data-mini="true" data-native-menu="false" data-icon="bouton_b">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+						</select>
+					</div><!-- /arr -->
+
+					<!--tel-->
+					<div data-role="fieldcontain">
+						<label for="form_tel">Téléphone</label>
+						<!-- pattern : ici permet de valider le formulaire seulement si on met 10 chiffres -->
+						<input type="tel" name="form_tel" id="form_tel" data-mini="true" pattern="[0-9]{10}" title="Veuillez insérer 10 chiffres"/>
+					</div>
+						
+					<!--Site-->
+					<div data-role="fieldcontain">
+						<label for="form_url">Site</label>
+						<!-- value="http://" permet de recuperer la valeur avec le http:// + la donnée de l'utilisateur -->
+						<input type="text" name="form_url" id="form_url" value="http://" data-mini="true"/>
+					</div>
+
+					<!--Description-->
+						<label for="form_description">Description*</label>
+						<textarea name="form_description" id="form_description" data-mini="true" ></textarea>
+
+					<!--Source-->
+					<div data-role="fieldcontain">
+						<label for="form_source">Source*</label>
+						<input type="text" name="form_source" id="form_source" placeholder="livres, sites" data-mini="true" />
+					</div>
+
+					<!--Fréquenté par-->
+						<label for="form_frequente_par">Fréquenté par*</label>
+						<input type="text" name="form_frequente_par" id="form_frequente_par" data-mini="true" />
+						
+					<!--Note-->
+					<div data-role="fieldcontain">
+						<label for="form_note">Note*</label>
+						<select name="form_note" id="form_note" data-mini="true" data-native-menu="false" data-icon="bouton_b">
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+						</select>
+					</div>
+					
+					<!--Charger photo(s)--><!-- pas encore implémenter, champs non obligatoire à remplir pour le moment -->
+						<label for="form_photo">Charger photo</label>
+						<input type="file" name="form_photo" id="form_photo" data-mini="true" />
+								
+					<!--Commentaire-->
+						<label for="form_commentaire">Commentaire*</label>
+						<textarea name="form_commentaire" id="form_commentaire" data-mini="true"></textarea>
+
+					<!--BOUTON SUBMIT-->
+					<p id="button_proposer">
+						<input type="submit" name="send" value="Proposer" data-inline="true" data-role="button" data-mini="true"/>
+					</p>
+				</form>
+
+			</div><!-- /content -->
+		</div><!-- /page -->
+
+		
+		
+		<!-- script vérifie que les champs requis sont bien remplis --> 	
+		<script text="text/javascript" src="js/add_lieu.js"></script>  
+
+		<!-- afficher login connexion -->
+		<script text="text/javascript" src="js/affiche-login-session.js"></script> 
+
+		<!--base-->
+		<script text="text/javascript" src="js/var_app.js"></script> 
+		<script text="text/javascript" src="js/zepto.min.js"></script> 
+		<script>
+			app.initialize();
+		</script>
+
+	</body>
+</html>

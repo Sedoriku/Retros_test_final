@@ -1,0 +1,108 @@
+	html, body, #map-canvas, #page, .content, .ui-panel-wrapper {
+		width : 100%;
+	    height: 100%;
+	    margin: 0px;
+	    padding: 0px;
+	    overflow :hidden;
+			
+	}
+	  
+	 #content_map {
+		width : 100%;
+		height : 96%;
+		margin-left: -15px;
+		
+	}	
+		
+		
+	.iwContent {
+		width : 300px;
+		height : 75px;
+		overflow : hidden;
+		background: #f8f6ea;
+
+	}
+	
+	.iwContent img {
+		float : left;
+		margin-right : 5px;
+		width : 100px;
+		height : 55px;
+		margin-top : 10px;
+		margin-left : 10px;
+		
+	}
+	
+	.iwContent p  {
+		line-height : 10px;
+		font-size : 0.8em;
+	}
+	
+	.adresse {
+		max-width : 230px;
+	
+	}
+	
+	.iwButton{
+		display : inline-block;
+		color : white;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		text-decoration : none;
+		text-align : center;
+		cursor : pointer;
+		width : 60px;
+		position : absolute;
+	 }
+	 
+	 .iwButton:active {
+		color : black;
+		
+	 }
+	 
+	 .btnFiche {
+		top: 30px;
+		left: 235px;
+		background : rgb(110,153,123);
+		
+	 }	
+
+	 .btnIti {
+		background : #E66A52;
+		left: 235px;
+		top: -2px;
+		
+	 }
+	 
+	 
+	 
+	
+	.iwTitre {
+		font-size : 1.3em;
+		
+	  }
+	
+	
+	.mapButton {
+		width : 60px;
+		height : 60px;
+	}
+	
+	#location:active {
+		background : url('../img/center_icon_active.png') no-repeat;
+	}
+
+	#location {
+		background : url('../img/center_icon2.png') no-repeat;
+
+	}
+
+	#refresh {
+		background : url('../img/loc_refresh_button.png') no-repeat;
+		
+	}
+	
+	#refresh:active {
+		background : url('../img/loc_refresh_button_active.png') no-repeat;
+		
+	}

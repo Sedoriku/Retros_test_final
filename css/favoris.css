@@ -1,0 +1,17 @@
+#lieux-favoris-zone ul {
+	list-style: none;
+}
+
+#lieux-favoris-zone img {
+	width: 80%;
+}
+
+h2 {
+	font-size: 1.1em;
+	text-align: center;
+}
+
+#icone-fav {
+	margin: 0 auto;
+	display: block;
+}

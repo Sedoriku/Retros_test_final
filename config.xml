@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns     = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "fr.argosapps.retrospective"
+        versionCode="10"
+        version   = "1.1.0">
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Rétrospective</name>
+
+    <description>
+        Application Rétrospective, développé par l'agence Argos dans le cadre des projets tuteurés. Agence de 6 étudiants en DUT SRC (promo 2014) à l'IUT de Marne-la-Vallée (Champs-sur-Marne).
+		
+		Application promouvant la culture, permettant de faire découvrir la ville de Paris sous un autre oeil. 
+    </description>
+
+    <author href="http://argosapps.fr" email="contact@argosapps.fr">
+        Les Argonautes, de l'agence Argos. 
+    </author>
+	
+<feature name="Notification">
+	<param name="android-package" value="org.apache.cordova.Notification" />
+</feature>
+
+<!-- permet d'accéder à la fonctionnalité d'écran de démarrage -->
+<feature name="SplashScreen">
+    <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+</feature>
+
+    <gap:plugin name="org.apache.cordova.geolocation" />
+
+
+
+<!--ICON-->	
+<!--icone de l'application-->
+<icon src="icon.png" />
+<icon src="img/icon/android/icon-ldpi.png"   gap:platform="android"	gap:density="ldpi" />
+<icon src="img/icon/android/icon-mdpi.png"   gap:platform="android"	gap:density="mdpi" />
+<icon src="img/icon/android/icon-hdpi.png"   gap:platform="android"	gap:density="hdpi" />
+<icon src="img/icon/android/icon-xhdpi.png"  gap:platform="android"	gap:density="xhdpi" />
+
+<!--on peut aussi rajouter pour platform: blackberry, webos, winphone-->
+<icon src="icon.png" 	gap:platform="blackberry" />
+<icon src="icon.png" 	gap:platform="blackberry" gap:state="hover"/>
+<icon src="icon.png"    gap:platform="webos" />
+<icon src="icon.png"  	gap:platform="winphone" />
+<icon src="icon.png" 	gap:platform="winphone"   gap:role="background" />
+	
+	
+<!--SPLASHSCREEN (ecran de chargement de l'application-->	
+<!--image du splashscreen-->
+<gap:splash src="img/splashscreen/android/ldpi.png" gap:platform="android" gap:density="ldpi"/>
+<gap:splash src="img/splashscreen/android/mdpi.png" gap:platform="android" gap:density="mdpi"/>
+<gap:splash src="img/splashscreen/android/hdpi.png" gap:platform="android" gap:density="hdpi"/>
+<gap:splash src="img/splashscreen/android/xhdpi.png" gap:platform="android" gap:density="xhdpi"/>
+
+
+<preference name="splashscreen" value="splash" />
+
+<!-- paramètre le temps d'affichage de l'écran d'affichage -->
+<preference name="splashScreenDelay" value="5000" />
+
+
+
+
+</widget>

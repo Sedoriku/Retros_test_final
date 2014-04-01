@@ -1,0 +1,104 @@
+<!-- PAGE DANS LAQUELLE ON VA AFFICHER DYNAMIQUEMENT LA LISTE DES EPOQUES, PUIS AVEC UN SYSTEME D'ACCORDEON, LES PERSONNAGES CORRESPONDANT A CHAQUE EPOQUES PUIS LES FICHES DES PERSONNAGES SUR LESQUELS ON A CLIQUE -->
+<!-- affichage dynamique grâce à jQuery (json, ajax) et PHP -->
+
+<!DOCTYPE html> 
+<html> 
+
+	<head> 
+		<title>Liste époques</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+		<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+		  
+		  
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+		  
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/menu.css" />
+		<link rel="stylesheet" href="css/liste_epoques.css" />
+		<link rel="stylesheet" href="css/perso.css" />
+
+		<!--script-->  
+		<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+		<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	</head> 
+	
+	<body> 
+
+		<div data-role="page">
+
+			<div data-role="header" data-position="fixed" id="menu_fixe" >
+			<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+				<h1><a href="index.html">Rétrospective</a></h1>
+				<div id="con-zone"></div>
+			</div><!-- /header -->
+			
+			<!-- MENU de GAUCHE -->
+			<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+					<ul data-role='listview' data-icon="false">
+						<li>Fiches
+							<li><a href="liste_lieux.html" rel="external"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+							
+							<li><a href="liste_persos.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+							
+							<li><a href="liste_epoques.html" rel="external">
+							<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+							
+							<li><a href="liste_arr.html" rel="external"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+
+							<li><a href="proximite.html" rel="external"><img src="img/menu/menu_gauche/icon_small_proximite.png" alt="">Proximité</a></li>
+							
+							<li><a href="plan_metro.html" rel="external"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+						
+						<li>Communauté
+							<li><a href="ajout_lieu.html" rel="external"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+							
+							<li><a href="evenements.html" rel="external"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+						
+						
+						<li>Compte
+							<li><a href="se_connecter.html" rel="external"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+							
+							<li><a href="favoris.html" rel="external"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+							
+							<li><a href="#" rel="external"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+					</ul>
+			</div><!-- /MENU de GAUCHE -->
+			
+			<div data-role="content">
+				<div id="page_title">
+					<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+					<h1>Epoques</h1>
+				</div><!-- /page_title -->
+
+
+				<!-- CONTENU Liste liste époques -->	
+				<div class="contenu_liste">
+					<br/>
+					<ul data-role='listview' data-icon="false" id="ul_liste_epoque">
+						<!-- liste dynamique des époques-->
+					</ul>
+				</div>
+
+			</div><!-- /content -->
+		</div><!-- /page -->
+
+			
+		<!-- afficher login connexion -->
+		<script text="text/javascript" src="js/affiche-login-session.js"></script>
+
+		<!-- afficher liste epoque -->
+		<script text="text/javascript" src="js/liste-epoques.js"></script> 
+
+		<!--base-->
+		<script text="text/javascript" src="js/var_app.js"></script> 
+		<script text="text/javascript" src="js/zepto.min.js"></script> 
+		<script>
+			app.initialize();
+		</script>
+			
+	</body>
+</html>

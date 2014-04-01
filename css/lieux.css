@@ -1,0 +1,269 @@
+/*bordure gauche du titre de la page*/
+#page_title, #fiche_title {
+border-color: #6E997B;
+}
+
+/*taille police de toutes la page*/
+div, ul li a, p{font-size: 13px;} 
+a:link, a:visited{
+color: #e76952;
+}
+
+/*******************PAGE TITLE***********************/
+/*à revoir pour le vert ou rouge*/
+#etat_lieu {
+/*cerle*/
+	width: 20px;
+	height: 20px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px; 
+	border: 1px black solid;
+}
+
+
+/*******************BANNIERE PHOTO*********************/
+/*A revoiiiir*/
+/*permet de mettre l'img sur tte la largeur de l'écran*/
+#banniere_lieu img{
+width: 100%;
+margin-top: 1px;
+}
+
+
+/******INFO_LIEU*******/
+#info_lieu ul, #note_utilisateur ul {
+
+padding-left: 0;/*supprimer le padding*/
+
+}
+
+
+/********NOTE********/
+/*taille bouton note*/
+#note-button {
+width: 30%;
+}
+
+
+#info_lieu li , #note_utilisateur ul li {list-style: none;}
+
+/*********GALRIE PHOTO UTILISATEUR***********/
+/* #galerie_photo {
+border: 2px dotted blue;
+margin: 5px;
+}*/
+
+/* .gallery-item a img{
+border: 1px dotted black;
+float: left;
+padding: 5px;
+margin-bottom: 20px; */
+} 
+
+
+/******LIEU FREQUENTE PAR***************/
+/*pour que la case ait la même largeur que les autres*/
+#lieu_frequente_par {
+margin: 0;
+}
+
+/*espace au-dessus de 'lieux fréquentés par' & zone_commentaire*/
+/*#lieu_frequente_par, #zone_commentaire{
+padding-top: 12px;
+}
+
+/*les liens de la listview sans coin arrondi*/
+#lieu_frequente_par .ui-controlgroup-controls li a{
+border-radius: 0;
+}
+
+/**buuuuuuuuuuuuuuuuuuuuuuUUG il ça ne marche pas***/
+/***BUUUUUG, ça change la couleur du bouton menu***/
+/*lien des lieux fréquentés par*/
+.ui-page-theme-a .ui-btn #lieu_frequente_par ul li a:link{
+/* background-color: #618585; */
+background-color: yellow;
+font-weight: lighter;
+color: white;
+}
+
+.ui-page-theme-a .ui-btn:active{
+background-color: #3f5e5e;
+color: white;
+}
+
+
+
+/*****************COMMENTAIRES******************/
+#zone_com_utilisateur {
+	padding-bottom: 20px;
+}
+
+#zone_com_utilisateur img {
+float: left;
+padding-right: 10px;
+} /*pas utilisé pour le moment*/
+
+/* #zone_com_utilisateur .com_utilisateur{
+border-top: 1px solid #cccccc;
+padding-top: 15px;
+} */
+
+#zone_com_utilisateur  li{list-style:none;}
+/*taille du nom, date et titre des commentaires*/
+.nom_user {font-size: 16px;}
+.titre {font-size: 14px;}
+.date {font-size: 12px; font-style: italic;}
+
+
+/*cadre*/
+#note_utilisateur, #zone_commentaire{
+text-align: justify;
+margin: 0 15px; /*espace entre les div et le body*/
+background: white;
+margin: 0;
+}
+
+
+#descrip_lieu, #note_utilisateur, #lieu_frequente_par , #favoris-zone{
+background-color: white;
+text-align: justify;
+padding: 6%;
+margin-top: -5%;
+}
+
+#favoris-zone img, #favoris-zone p{
+	margin: 0 auto;
+	display: block;
+	
+}
+
+#info_lieu ul{
+text-align: center;
+}
+
+
+#info_lieu{
+background-color: #6E997B;
+color: white;
+text-align: center;
+}
+
+
+.infos_center{
+text-align: center;
+padding-bottom: 4%;
+}
+
+.infospratiques, #favoris-zone{
+background-color: #FFF;
+color: rgb(110, 153, 123);
+font-size: 1.2em;
+text-align: center;
+border-top: solid;
+}
+
+.boutoncarte{
+background-color: white;
+}
+
+#moyennenote{
+color: white;
+font-size: 1.5em;
+text-align: center;
+background-color: #6E997B;
+}
+
+.manote{
+color: white;
+text-align: center;
+background-color: #CA583E;
+}
+
+#lieu_frequente_par{
+background-color: white;
+}
+
+#lieu_frequente_par img {
+	margin: 0 auto;
+	display: block;
+	margin-top: -40px;
+	margin-bottom: -30px;
+}
+
+
+
+.positionleft .nom_lieu {
+	font-size: 2em;
+}
+
+.type-lieu-zone {
+	text-align: center;
+}
+
+#zone_com_utilisateur h4{
+	text-align: center;
+	color: rgb(110, 153, 123);
+}
+
+#zone_com_utilisateur ul {
+	margin-left: -30px;
+	margin-right: 25px;
+	text-align: left;
+}
+
+.com-icon {
+	display: block;
+	margin: 0 auto;
+}
+
+#add-com {
+	margin-left: 10px;
+}
+
+.barre-haut {
+	border-top: 1px solid rgb(110, 153, 123);
+	padding-top: 20px;
+}
+
+#note-button {
+	margin: 0 auto;
+}
+
+#persfreqlieu ul {
+	text-align: center;
+}
+
+.carte-icon {
+	display: block;
+	margin: 0 auto;
+	margin-top: -40px;
+	margin-bottom: -30px;
+}
+
+.type-lieu-item {
+	list-style: none;
+	text-decoration: none;
+}
+
+#ul_liste_lieuxtype li ul, #ul_liste_arr li ul {
+	list-style: none;
+}
+
+.site_web a {
+	color: white;
+	font-weight: normal;
+}
+
+.nb-commentaires {
+	text-align: center;
+}
+
+
+.infocom {
+	text-align: center;
+	color: #C9573D;
+}
+

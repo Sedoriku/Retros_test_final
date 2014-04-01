@@ -1,0 +1,850 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Menu principal</title> 
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+	  
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/menu.css" />
+	<link rel="stylesheet" href="css/liste_lieux.css" />
+	<link rel="stylesheet" href="css/lieux.css" />
+	<link rel="stylesheet" href="css/map.css" />
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+  
+  
+<!--script-->
+		<script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDRU_hzB5XTYUQ5vWe1dpHffk053tR4Sg&sensor=true">
+    </script>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+	<script type="text/javascript">
+
+//variables pour initialiser la carte et le watchID (qui sert pour la géolocalisation en temps réel)
+var map;
+var watchID = null;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();		
+
+////////////////////////////// AJOUTER DES BOUTONS A LA CARTE ////////////////////////////////////////////////////////
+
+	function centerPos(controlDiv, map) {
+    
+    // Set CSS styles for the DIV containing the control
+		// Setting padding to 5 px will offset the control
+		// from the edge of the map
+		controlDiv.style.padding = '5px';
+
+		// Set CSS for the control border
+    var controlUI = document.createElement('div');
+		//controlUI.style.backgroundColor = 'white';
+		controlUI.style.backgroundOpacity = '0';
+		//controlUI.style.borderStyle = 'solid';
+		//controlUI.style.borderWidth = '1px';
+		//controlUI.style.borderRadius = '10px';
+		controlUI.style.cursor = 'pointer';
+		controlUI.style.textAlign = 'center';
+		controlUI.title = 'Click to set the map to Home';
+		controlUI.innerHTML = '<div class="mapButton" id="location"> </div>';
+		controlDiv.appendChild(controlUI);
+
+		// Set CSS for the control interior
+
+		// Setup the click event listeners: simply set the map to
+		// Chicago
+		google.maps.event.addDomListener(controlUI, 'click', function() {
+		findMyLocation();
+		});
+	}
+	
+	function autoRefresh(RefreshDiv, map, watchButton) {
+		
+		// Set CSS styles for the DIV containing the control
+		// Setting padding to 5 px will offset the control
+		// from the edge of the map
+		 
+		var controlText = document.createElement('div');
+		controlText.title = 'Cliquez pour activer la géolocalisation automatique';
+		controlText.style.cursor = 'pointer';
+		controlText.innerHTML = '<div class="mapButton" id="refresh"></div>';
+		RefreshDiv.appendChild(controlText);
+			
+		google.maps.event.addDomListener(RefreshDiv, 'click', function() {
+				Watch();
+
+	});
+	
+	}
+
+	
+	////////////////////////////// INITIALIZE ////////////////////////////////////////////////////////
+	
+// fonction initialize qui s'active dès le chargement de la page : affiche la carte, centrée sur la position du mobile, 
+function initialize() {
+		
+		$('#fiche_lieu').hide();
+		// Bout de code ajax qui va récupérer les informations dans la table retro_lieu dans la base de données afin afficher les marqueurs et au clic une fenêtre qui montre un bref aperçu du lieu et propose de s'y rendre 
+		$.ajax({ 
+			type: 'GET',
+			url: 'http://www.argosapps.fr/test_markers/liste_lieux_geo.php?&jsoncallback=?', //jsoncallback très important sinon requête ne va pas marcher. Récupère les informations sous forme de tableau.
+			dataType: 'JSONp',
+			timeout: 8000,
+			success: function(data) { //fonction appellée en cas de succes 
+				$.each(data, function(i,item){ // boucle qui va faire le tour du tableau, à chaque passage dans une ligne du tableau on récupère les informations pour les utiliser
+					var LatLngMarker = new google.maps.LatLng(item.latitude, item.longitude); // on récupère les coordonnées du lieu pour en faire une variable utilisable par l'API Google Maps
+					var marker = new google.maps.Marker({ // données à mettre dans le marker 
+						position: LatLngMarker, // la position
+						map: map, // la carte Google maps dans laquelle il sera inséré
+						title : item.nom_lieu // Le nom du lieu qui s'affiche au passage de la souris. Mais cette variable nous servira pour récupérer le nom du lieu a afficher dans l'infobulle 
+					});
+					
+          google.maps.event.addListener(marker, "click",  function (e) { // fonction qui va s'enclencher au clic d'un marker 													
+						InfoWindow = new google.maps.InfoWindow({ // Données à mettre dans l'infobulle, ici on rajoute le contenu en HTML, afin de pouvoir faire un peu de mise en page
+							content : '<div class="iwContent">'+ // div qui englobe toute l'infobule
+							'<img src="'+item.min+'" class="baniere" />' + // l'image 
+							'<p class="iwTitre">' + marker.title +'</p>'+ //Nom du lieu
+							'<p class="adresse"> ' + item.adresse +'</p>'+//Adresse
+							'<p>' + item.code_postal + ' PARIS</p>'+ //Code postal
+							'<p class="iwButton btnIti" onclick="calcRoute('+item.longitude+' , ' +item.latitude +')"> J\'y vais ! </a>'+ // le bouton "J'y vais" qui au clic appelle la fonction calcRoute avec la longitude et la latitude du marker ajoutés en paramètres
+							'<p class="iwButton btnFiche" onclick="redirectFiche('+item.id+')">Fiche lieu</a>'+ // le bouton "Voir la fiche" qui renvoie vers la fiche du lieu avec pour argument l'id du lieu cliqué 
+							'</div>'							
+						});
+						map.setCenter(LatLngMarker);	// au clic on centre la carte sur le marker	
+						InfoWindow.open(map, marker); // Enfin on ouvre l'infobulle 
+					});
+				});
+			},
+			error: function(data) { //Fonction qui est appellée si l'appel ajax a échoué 
+				alert('Buuuug');
+			}
+		});
+
+
+
+
+
+	directionsDisplay = new google.maps.DirectionsRenderer(); // Active les itinéraires sur google maps 
+	google.maps.visualRefresh = true; // Active la mise a jour des styles de la carte
+	
+	var mapOptions = {zoom: 13, mapTypeId: google.maps.MapTypeId.TERRAIN, disableDefaultUI: true}; // défini les options de la carte, ici le zoom, le type  de la carte, les controles affichés (ici aucun)
+	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions); //on insère la carte dans l'élément ayant pour id map-canvas 
+  		
+
+  directionsDisplay.setMap(map);
+
+
+  var posControlDiv = document.createElement('div');
+  var posControl = new centerPos(posControlDiv, map);
+  posControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(posControlDiv);  
+
+  var RefreshDiv = document.createElement('div');
+  var autoRefreshButton = new autoRefresh(RefreshDiv, map);
+  RefreshDiv.index = 1;
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(RefreshDiv);  
+  
+
+	
+	
+	
+	 //On place les marqueurs ici 
+	 
+	 // google.maps.LatLng est une variable qui contient deux coordonnées latitude et longitude. On va l'utiliser a chaque fois afin que la position soit utilisable dans les fonctions de l'API maps 
+	
+
+	  
+	  
+  // Try HTML5 geolocation
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+		
+		//On entre les coordonnées du centre de la carte dans une variable (ici ce sont des coordonnées aléatoires pour voir si la position s'actualise bien quand on appuie sur les boutons) 
+		  var pos = new google.maps.LatLng(48.8808876, 2.3405177);
+		
+		//On crée une petite infobulle pour montrer précisément l'endroit ou on est
+			InfoWindow = new google.maps.InfoWindow({
+			map: map,
+			position: pos,
+			content: '<div class="iwPos">Vous êtes ici</div>'
+		  });
+		
+		//Puis on centre sur le point
+		  map.setCenter(pos);
+		  
+		  //on appelle les fonctions qui préviennent que la géolocalisation marche ou pas (si ça marche elle n'affiche rien) 
+		});	
+	}
+
+
+
+
+}
+
+////////////////////////////// FIN INITIALIZE ////////////////////////////////////////////////////////
+
+
+////////////////////////////// CALC ROUTE //////////////////////////////////////////////////////////
+  function calcRoute(MarkLon, MarkLat) {
+	
+navigator.geolocation.getCurrentPosition(success, error);
+
+function success(position) {
+
+	
+  var request = {
+      origin: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+      destination: new google.maps.LatLng(MarkLat, MarkLon),
+      travelMode: google.maps.TravelMode.WALKING
+  };
+
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+		directionsDisplay.setDirections(response); 
+    }
+	else {
+		alert('Erreur, chemin non trouvé, essayez avec un autre moyen de transport');
+	}
+  });
+		
+
+	}
+ 
+ function error() {
+	alert('Impossible de retrouver votre position');
+ }
+ 
+ 
+ 
+}
+////////////////////////////// FIN CALC ROUTE //////////////////////////////////////////////////////////
+
+
+
+
+//la fonction pour récupérer notre position actuelle et recentrer la carte 
+function findMyLocation() {
+	    navigator.geolocation.getCurrentPosition(function(position) {
+			var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+			
+			//sert a afficher les informations récupérées par le gps pour les afficher sous forme de texte								
+			//change l'infobulle pour la centrer sur notre position
+			 InfoWindow = new google.maps.InfoWindow({
+				map: map,
+				position: pos,
+				content: '<div class="iwPos">Vous êtes ici</div>'
+			});
+			map.setCenter(pos);
+			$('#start').append('<option value="'+ pos +'"></option>');
+		});
+		
+}
+
+
+
+
+// Watch : fonction pour activer la géolocalisation en temps réel 
+function Watch () {
+		
+
+		  if (watchID !== null) {
+            navigator.geolocation.clearWatch(watchID);
+            watchID = null;
+			alert('NSA : "ok pardon on arrete :(" ');
+        } else {
+			var options = { //on définit les options de la fonction watchID, timeout : le temps avant que la position ne se rafraichisse (pas sur)  			enableHighAccuracy : activer la géolocalisation précise 
+				timeout: 10000,
+				enableHighAccuracy : true
+			};
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+				
+		}
+}
+			
+			
+			function onSuccess(position) { //si la récupération des coordonnées marche, on appelle cette fonction 
+					var positionWatch = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);			
+					map.setCenter(positionWatch);
+					InfoWindow.close();
+					       InfoWindow = new google.maps.InfoWindow({
+							map: map,
+							position: positionWatch,
+							content: '<div class="iwPos">Vous êtes ici</div>'
+						  });
+			}
+			
+			//fonction appellée si la récupération de coordonnées ne marche pas. c'est facultatif et ne sert surtout que pour le developpement 
+			function onError(error) {
+				alert('code: '    + error.code    + '\n message: ' + error.message + '\n');
+			}
+
+	//la fonction clearWatch désactive la géolocalisation en temps réel, si elle n'est pas activée quand on veut la désactiver un message s'affiche pour dire que la fonction n'est pas activée 
+	 function clearWatch() {
+        if (watchID !== null) {
+            navigator.geolocation.clearWatch(watchID);
+            watchID = null;
+			alert('NSA : "ok pardon on arrete :(" ');
+        } else {
+			alert('Pour désactiver le watchID, faut l\'activer !');
+		}
+	}
+
+
+	
+	function redirectFiche(idlieu) {
+									
+
+						$.ajax({
+								type: "GET",
+								dataType: 'jsonp',
+								url: 'http://www.argosapps.fr/retro_php_server/fiche-lieu-selon-lieu-liste.php?callback=?',
+								data: ({'idlieu' : idlieu}), //on passe la variable en data pour la récupérer en PHP par $_GET['idlieu']
+								success: function(data){
+								
+									console.log('Succès fiche lieu !');
+									console.log(data); 
+									
+									var $divlieu = '#fiche_lieu';
+									
+									
+									$($divlieu).html("<div id='contenu-fiche-l' data-role='content'>"+
+														"<div id='fiche_title'>"+
+												
+														"</div><!-- /page_title -->"+
+														"<p id='retour'>Retour a la carte</p>"+
+														"<div id='banniere_lieu'>"+
+														"</div>"+
+														"<div class='type-lieu-zone'>"+
+														"</div>"+
+														
+														"<!-- info lieu-->"+
+														"<div id='info_lieu'>"+
+															"<h2 class='infospratiques'>Infos pratiques</h2>"+
+															"<ul class='infos_center'>"+
+																"<img src='img/flaticon-calendar.png' alt='' />"+
+																"<li class='annee_construction'></li>"+
+																"<img src='img/flaticon-geoloc.png' alt='' />"+
+																"<li class='adresse'></li>"+
+																"<li class='lieu-arrondissement'></li>"+
+																"<img src='img/flaticon-siteweb.png' alt='' />"+
+																"<li class='site_web'></li>"+
+														
+																"<img src='img/flaticon-telephone.png' alt='' />"+
+																"<li class='telephone'></li>"+
+														
+																"<img src='img/flaticon-metro.png' alt='' />"+
+																"<li class='metro'></li>"+
+															"</ul>"+
+															"<ul>"+
+															"</ul>"+
+															"</div><!-- /info lieu-->"+
+
+															"<br/>"+
+														
+														"<!--descrip lieu-->"+
+														"<h2 class='infospratiques'>Rétrospective sur le lieu</h2>"+
+														"<div id='descrip_lieu'></div><!-- /descrip lieu-->	"+
+														
+														"<br/>"+
+														"<div id='favoris-zone'>"+
+															"<img src='img/lieux/favoris-icone-medium.png' alt='' /><p>Un coup de coeur ?</p>"+
+															"<form id='favoris-form'>"+
+															"<div id='hidden-favoris'>"+
+															"</div>"+
+															"<input type='submit' name='favoris-soumettre' value='Ajouter à mes favoris' data-mini='true' /></form>"+
+														"</div>"+
+														"<br/>"+
+															
+														"<h2 class='infospratiques'>La note du lieu</h2>"+
+														
+														"<!--note & like-->"+
+														"<div id='note_utilisateur'>"+	
+														"<div id='moyennenote'></div>"+
+														
+														"<img src='img/flaticon-star.png' alt='' />A vous de noter :"+ 
+
+														"<form>"+
+															"<ul>"+
+																"<li data-role='fieldcontain'>"+
+																	"<select name='manote' id='note' data-mini='true' data-native-menu='false' data-icon='bouton_b'>"+
+																		"<option value='1'>1</option>"+
+																		"<option value='2'>2</option>"+
+																		"<option value='3'>3</option>"+
+																		"<option value='4'>4</option>"+
+																		"<option value='5'>5</option>"+
+																	"</select>"+
+																	"<div id='hidden-id-lieu-note'></div>"+
+																	
+																	"<p class='button'>"+
+																		"<input type='submit' name='add_note' value='Ajouter' data-mini='true'/>"+
+																	"</p>"+
+															
+																"</li>"+
+																"<!--moyenne note-->"+
+															"</ul>"+
+														
+														"</form>"+
+													"</div><!-- /note & like-->"+
+														
+													"<br/>"+
+													"<!--galerie photo-->"+
+													
+													"<br/>"+
+													"<!--frequenté par-->"+
+													"<div id='lieu_frequente_par' class='fondbeige rose alinea'>"+
+														"<h3 class='bold infospratiques'>Ils y sont allés :</h3>"+
+														"<img src='img/lieux/perso-icon.png' alt='' />"+
+														"<div id='persfreqlieu'>"+
+															"<ul  data-role='controlgroup' data-mini='true'>"+
+															"</ul>"+
+														"</div>"+
+														
+													"</div><!-- fréquenté par -->"+
+													"<!-- bouton je veux y aller -->"+	
+													"<div class='boutoncarte'>"+
+
+													"<h3 class='bold infospratiques'>Le lieu sur la carte</h3>"+
+													"<p class='button'>"+
+														"<img class='carte-icon' src='img/flaticon-map.png' alt='' /><input type='button' name='see_map' value='Voir la carte' data-mini='true'/>"+
+													"</p>"+
+												"<br/>"+
+												"</div>"+
+
+												"<br/>"+
+
+												"<!-- commentaire-->"+
+												"<div id='zone_commentaire' class='fondblanc'>"+
+													"<h3 class='infospratiques'>Commentaires</h3>"+
+													"<img class='com-icon' src='img/flaticon-com.png' alt='' />"+
+													
+
+													"<form id='add-com'>"+
+													"<p class='infocom'></p>"+
+
+														"<!-- pseudo -->"+
+														"<label for='pseudo' class='ui-hidden-accessible'>Pseudo</label>"+
+														"<input type='text' name='pseudo' id='pseudo' placeholder='Pseudo' data-mini='true'/>"+
+
+														"<!--Titre commentaire DONE BDD--> "+
+														"<label for='titre_com' class='ui-hidden-accessible'>Titre</label>"+
+														"<input type='text' name='titre_com' id='titre_com' placeholder='Titre' data-mini='true'/>"+
+
+														"<!--Commentaire DONE BDD-->"+
+														"<label for='commentaire' class='ui-hidden-accessible'>Commentaire</label>"+
+														"<textarea name='commentaire' id='commentaire' data-mini='true' placeholder='Laisser un commentaire'></textarea>"+
+														
+														"<div id='hidden-id-lieu'></div>"+
+														
+														"<!-- bouton Commenter-->"+
+														"<p class='button'>"+
+															"<input type='submit' name='send_comment' id='bouton_commenter' value='Commenter' data-mini='true' />"+
+														"</p>"+
+													"</form>"+
+														
+													"<!-- liste des commentaires user -->"+	
+													"<div id='zone_com_utilisateur'>"+
+														"<p class='nb-commentaires'></p>"+
+														"<h4></h4>"+
+														"<ul class='com_utilisateur'>"+
+														"</ul>"+
+														
+													"</div><!-- /liste des commentaires user -->"+
+													
+												"</div><!-- /commentaire-->");
+												 
+												 //ici aussi pour recharger jQuery mobile styles :
+												$("#contenu-fiche-l").trigger('create');
+												 
+											
+									$.each(data, function(i, item) {
+										
+										
+										//on récupère les informations dynamiques relatives aux lieux
+										var idlieubdd = item.idlieu; 
+										var nom_lieu = item.nom_lieu; 
+										var banniere = item.banniere_lieu;
+										var annee_construction = item.annee_construction;
+										var adresse = item.adresse; 
+										var site_web = item.site_web; 
+										var telephone = item.telephone; 
+										
+										var metro = item.metro;
+										var description = item.description; 
+										var id_lieu_com = item.id_lieu_com; 
+										var idperso = item.idperso;
+										var prenom = item.prenom;
+										var nom = item.nom;
+										var arrondissement = item.arrondissement_paris;
+										
+										
+											//On affiche les informations dynamiques aux endroits voulus :
+											// Afficher la banniere du lieu
+											$('#banniere_lieu').html("<img src='" +banniere+ "' alt='' />");
+											
+											$('.lieu-arrondissement').html(arrondissement+" arrondissement");
+											
+											// Afficher l'année de construction du lieu
+											$('.annee_construction').html(annee_construction);
+											
+											// Afficher l'adresse du lieu
+											$('.adresse').html(adresse);
+										
+											// Afficher le site web du lieu
+											$('.site_web').html("<a href='"+site_web+"'>"+site_web+"</a>");
+										
+										
+											// Afficher le numéro de téléphone du lieu
+											$('.telephone').html("0"+telephone);
+											
+											// Afficher le métro
+											$('.metro').html(metro);
+										
+											$('#descrip_lieu').html(description);
+								
+											//L'id du lieu pour commentaires
+											$('#hidden-id-lieu').html("<input type='hidden' name='id_lieu_com' value='"+idlieubdd+"' />");
+											
+											// Afficher les personnages ayant fréquenté le lieu
+											$('#contenu-fiche-l #persfreqlieu ul').append(" - "+prenom+" "+nom);
+											
+											//L'id du lieu pour notes
+											$('#hidden-id-lieu-note').html("<input type='hidden' name='id_lieu_note' value='"+idlieubdd+"' />");
+											
+											//Pour l'id du lieu pour favoris
+											$("#hidden-favoris").html("<input type='hidden' name='favorislieu' value='"+idlieubdd+"' />");
+											 
+											 // Pour recharger le style jQuery mobile :
+											 $("#ul_liste_lieuxAZ div #contenu-fiche-l").trigger('create');
+
+									});
+									// POUR LE TYPE DE LIEU :
+									$.ajax({
+										type: "GET",
+										dataType: 'jsonp',
+										url: 'http://www.argosapps.fr/retro_php_server/type-lieu-fiche.php?callback=?',
+										data: ({'idlieu' : idlieu}), 
+										success: function(data){
+										
+											console.log('Succès type fiche lieu !');
+											$.each(data, function(i, item) {
+												$("#contenu-fiche-l .type-lieu-zone").append("<img src='"+item.icone_type_lieu+"' alt='' />"+item.type_lieu);
+											});
+										},
+										error: function(data) {
+											$("#ul_liste_lieuxAZ div #contenu-fiche-l .type-lieu-zone").append('<li>Problème de connexion ? Veuillez vérifier votre connexion au réseau');
+										}
+									});
+									
+									
+									//Ajouter le lieu aux favoris
+										$('#favoris-form').submit(function(){
+										
+											var postDatafav = $(this).serialize();
+													$.ajax({
+															type: 'POST',	
+															data: postDatafav,
+															url: 'http://www.argosapps.fr/retro_php_server/ajouter-lieu-favoris.php',
+															success: function(data){
+																	//do your thing
+																	console.log('Favoris succès !');
+																	alert(data);
+
+															},
+															error: function(){
+																	//do your thing
+																	console.log('Erreur favoris');
+															}
+													});
+
+													return false;
+													
+											});
+									
+									
+									// ************************************** POUR LES COMMENTAIRES ******************************************************* //
+									function loadComs() {
+										var coms = $('#contenu-fiche-l #zone_com_utilisateur ul');
+										
+										$.ajax({
+											type: 'GET',
+											dataType: 'jsonp',
+											url: 'http://www.argosapps.fr/retro_php_server/coms.php?&jsoncallback=?', //jsoncallback très important sinon requête ne va pas marcher
+											data: ({'idlieu' : idlieu}), //on passe la variable en data pour la récupérer en PHP par $_GET['idlieu']
+											timeout: 8000,
+											success: function(data) {
+												
+												moment.lang('fr'); //format de langue, ici français
+												
+												var nbcoms = 0;
+												$.each(data, function(i,item){
+													//durée entre la date de publication et l'instant présent
+													var datemoment = moment(item.datefr,"DD-MM-YYYY HH:mm").fromNow();
+													coms.append('<li class="rose bold nom_user barre-haut"><img src="img/lieux/user-com.png" alt="" />'+item.pseudo+'</li>');
+													coms.append('<li class="titre">« '+item.titre_com+' »</li>');
+													coms.append('<li class="rose date">'+datemoment+'</li>');
+													coms.append('<li class="barre-bas">'+item.commentaire+'</li><br/>');
+													//coms.append('<li>'+item.id_lieu_com+'</li><br/>');
+													
+													//pour compter le nombre de commentaires
+													 nbcoms = nbcoms + 1;
+												});
+													//S'il y a 1 ou 0 commentaire, on affichera "commentaire", sinon, on affichera "commentaires"
+													if (nbcoms <= 1) { var com ='commentaire';} else { com = 'commentaires';}
+													$("#contenu-fiche-l #zone_com_utilisateur .nb-commentaires").append("Il y a "+nbcoms+" "+com);
+													
+													//S'il n'y a pas de commentaires, on affiche "Soit le 1er à commenter !"
+													if (nbcoms == 0) {
+														$(".infocom").append("Soit le 1er à commenter !");
+													
+													//Sinon on affiche "Les Rétro utilisateurs ont dit :"
+													} else {
+														$("#contenu-fiche-l #zone_com_utilisateur h4").append("Les Rétro utilisateurs ont dit :");
+													
+													}
+											
+										
+											},
+											error: function(data) {
+												coms.append('<li>Impossible de charger les commentaires. Veuillez vérifier votre connexion réseau');
+											}
+										});
+									}
+									
+				
+									loadComs();
+
+									
+									// ************************************** POUR LES COMMENTAIRES ******************************************************* //
+									
+									
+									// ************************* MOYENNE NOTE LIEU ***********************//
+									
+									//La note du lieu (moyenne)
+									function loadMarkavg() {
+									var markavg = $('#contenu-fiche-l #moyennenote');
+									$.ajax({
+										type: 'GET',
+										dataType: 'JSONp',
+										url: 'http://www.argosapps.fr/retro_php_server/avgnote.php?&jsoncallback=?',
+										data: ({'idlieu' : idlieu}), //on passe la variable en data pour la récupérer en PHP par $_GET['idlieu']
+										timeout: 8000,
+										success: function(data) {
+											$.each(data, function(i,item){
+												if(item.avgnote == null) {
+													markavg.append("Soit le 1er à noter !");
+													
+												} else {
+													markavg.append(item.avgnote+'/5');
+												}
+											});
+											
+											
+											},
+										error: function(data) {
+											markavg.append('<li>Impossible de charger la moyenne des notes. Veuillez vérifier votre connexion réseau');
+										}
+										
+										
+									});
+								}
+								loadMarkavg(); //à mettre obligatoirement	
+						
+									
+									// ********************************* //
+									
+									
+									// ************************************** POUR LES NOTES ******************************************************* //
+									//test avec les notes
+									function loadMark() {
+										var mark = $('#contenu-fiche-l #note_utilisateur form ul');
+										
+										$.ajax({
+											type: 'GET',
+											dataType: 'JSONp',
+											url: 'http://www.argosapps.fr/retro_php_server/marks.php?&jsoncallback=?',
+											data: ({'idlieu' : idlieu}), //on passe la variable en data pour la récupérer en PHP par $_GET['idlieu']
+											timeout: 8000,
+											success: function(data) {
+											
+												$.each(data, function(i,item){
+													if(item.note == undefined) {
+														mark.append("<li class='manote'>Ce lieu n'a pas encore de note !</li>");
+													} else {
+														mark.append('<li class="manote">'+'La dernière note : '+item.note+'/5</li>');
+													}
+												});
+															
+												
+												},
+											error: function(data) {
+												mark.append('<li>Impossible de charger les notes. Veuillez vérifier votre connexion réseau');
+											
+											}
+											
+										});
+									}
+									
+									loadMark();
+									
+									
+									// ******************************** POUR LES NOTES *******************************//
+									
+									
+
+								},
+								error: function(){
+									//do your thing
+									console.log('so sad!');
+								}
+								});
+								
+
+						$('#content_map').hide();
+						$('#fiche_lieu').show();
+
+									$('#retour').click(function() {
+									$('#fiche_lieu').hide("slow",function() {
+										$('#content_map').show();
+									} );
+								});
+	
+	}
+	
+	// ********* Ajouter un commentaire **************
+									$('#zone_commentaire form').submit(function(){
+								
+												// je récupère les valeurs
+										var pseudo = $('#pseudo').val();
+										var titre_com = $('#titre_com').val();
+										var comment_lieu = $('#commentaire').val();
+										var id_lieu_com = $('#hidden-id-lieu').val();
+										alert(pseudo+", vous allez poster : "+"Titre : "+titre_com+", Commentaire : "+comment_lieu+" "+id_lieu_com);
+								 
+										if(pseudo == '' || titre_com == '' || comment_lieu == '' ) {
+											alert('Veillez à ce que tous les champs soient remplis!');
+											pseudo.remove();
+											titre_com.remove();
+											comment_lieu.remove();
+										} else {
+									
+												var postDatacom = $(this).serialize();
+
+												$.ajax({
+														type: 'POST',
+														data: postDatacom,
+														url: 'http://www.argosapps.fr/retro_php_server/add-com.php',
+														success: function(data){
+																//do your thing
+																console.log('Commentaire ajoute!');
+																alert('Votre commentaire a bien été enregistré !'); // j'affiche cette réponse
+														},
+														error: function(){
+																//do your thing
+																console.log('Erreur dans lenvoie du commentaire');
+																
+
+														}
+												});
+
+												return false;
+											}
+										});
+										
+										
+										// ***************** fin ajout commentaire ************
+										
+										// ********************** FAVORIS ************************* //
+
+
+// Voici l'écouteur qui va, une fois la page chargée, appeller la fonction initialize ci dessus 
+google.maps.event.addDomListener(window, 'load', initialize);
+	  </script>
+</head>
+ 
+<body> 
+<div data-role="page" id="page">
+	<div data-role="header" data-position="fixed" id="menu_fixe">
+	
+<!-- data-icon="nom_icone" ça affiche l'icône qui porte ce nom-->	
+<!-- data-iconpos="notext" permet de ne pas afficher le nom du bouton c'est seulement pour les lecteurs d'écran -->	
+<!-- data-corners="false" ça enlèves les coins arrondis du bouton/icone -->	
+
+	<!-- bouton qui fait sortir le menu de gauche-->
+	<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext" data-corners="false">Menu</a>
+		<h1><a href="index.html">Rétrospective</a></h1><!-- redirection vers la page d'accueil menu-->
+		
+
+	</div><!-- /header -->
+
+
+		<div data-role="content" class="content">	
+			<div id="content_map">
+
+				<div id="map-canvas"></div>
+			
+			
+			</div>
+			
+			<div id="fiche_lieu">
+				
+			</div>
+	
+	</div><!-- /content -->
+	
+		<!-- MENU de GAUCHE -->
+	<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left" data-transition="slide">
+			<ul data-role='listview' data-icon="false">
+				<li>Fiches
+					<li><a href="liste_lieux.html"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+					
+					<li><a href="liste_persos.html">
+					<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+					
+					<li><a href="liste_epoques.html">
+					<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+					
+					<li><a href="liste_arr.html"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+					
+					<li><a href="proximite.html" rel="external"><img src="img/menu/menu_gauche/icon_small_proximite.png" alt="">Proximité</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+				
+				<li>Communauté
+					<li><a href="ajout_lieu.html"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+				
+				
+				<li>Compte
+					<li><a href="se_connecter.html"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+			</ul>
+	</div><!-- MENU de GAUCHE -->
+	
+</div><!-- /page -->
+
+
+
+
+<!-- script pour afficher menu de gauche  -->
+<script text="text/javascript" src="js/menu_gauche.js"></script> 	
+		<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.4.0/moment-with-langs.js"></script>
+		<script text="text/javascript" src="js/onglet.js"></script> 
+		<script text="text/javascript" src="js/affiche-login-session.js"></script> 
+
+	
+<!--base-->
+	<script text="text/javascript" src="js/var_app.js"></script> 
+	<script text="text/javascript" src="js/zepto.min.js"></script> 
+	<script>
+		app.initialize();
+	</script>
+</body>
+
+</html>

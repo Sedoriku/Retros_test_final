@@ -1,0 +1,19 @@
+/*bordure gauche du titre de la page*/
+#page_title {
+border-color: #6E997B;
+}
+
+
+.ui-input-text {
+	width: 60%;
+	display: inline-block;
+}
+
+#search-bar {
+	margin-left: 2%;
+}
+
+#ul_liste_lieuxtype li ul li a img {
+	margin: 0 auto;
+	margin-top: 10px;
+}

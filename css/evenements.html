@@ -1,0 +1,144 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+	<title>Voltaire</title> <!--A CHANGER SELON LE NOM-->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/retro_style.css" />
+	<link rel="stylesheet" href="css/jquery-mobile-theme-01/themes/jquery.mobile.icons.min.css" />
+	  
+	  
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.0/jquery.mobile.structure-1.4.0.min.css" />
+	  
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/menu.css" />
+	<link rel="stylesheet" href="css/perso.css" />
+	<link rel="stylesheet" href="css/evenements.css" />
+	
+<!--script-->  
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script> 
+	<script src="http://code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.js"></script> 
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed" id="menu_fixe" >
+	<a href="#menu_gauche" data-icon="icon_header_bars" data-iconpos="notext">Menu</a>
+		<h1><a href="index.html">Rétrospective</a></h1>
+	</div><!-- /header -->
+	
+					<!-- MENU de GAUCHE -->
+	<div data-role="panel" id="menu_gauche" data-display="reveal" data-position="left">
+			<ul data-role='listview' data-icon="false">
+				<li>Fiches
+					<li><a href="liste_lieux.html"><img src="img/menu/menu_gauche/icon_small_lieu.png" alt=""/>Lieux</a></li>
+					
+					<li><a href="liste_persos.html">
+					<img src="img/menu/menu_gauche/icon_small_perso.png" alt="">Personnages</a></li>
+					
+					<li><a href="liste_epoques.html">
+					<img src="img/menu/menu_gauche/icon_small_epoque.png" alt="">Epoques</a></li>
+					
+					<li><a href="liste_arr.html"><img src="img/menu/menu_gauche/icon_small_arr.png" alt="">Arrondissements</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_plan_metro.png" alt="">Plan métro</a></li>
+				
+				<li>Communauté
+					<li><a href="ajout_lieu.html"><img src="img/menu/menu_gauche/icon_small_ajout_lieu.png" alt="">Ajouter un lieu</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_evenements.png" alt="">Evènements</a></li>
+				
+				
+				<li>Compte
+					<li><a href="se_connecter.html"><img src="img/menu/menu_gauche/icon_small_se_connecte.png" alt="">Se connecter</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_favoris.png" alt="">Favoris</a></li>
+					
+					<li><a href="#"><img src="img/menu/menu_gauche/icon_small_parametres.png" alt="">Paramètres</a></li>
+			</ul>
+	</div><!-- MENU de GAUCHE -->
+	
+	<div data-role="content">
+	<div id="page_title">
+	<a href="index.html" data-role="button" data-icon="bouton_l" data-iconpos="notext" data-rel="back">Retour</a>
+		<h1>Evénements</h1><!--A CHANGER SELON LE NOM-->
+	</div><!-- /page_title -->
+	
+	<br/>
+	
+	<h2 class="expo">Expositions</h2>
+	<p>Explorez la capitale à travers des expositions retraçant une partie de l'histoire de Paris ou de ceux qui l'ont bâtie !</p>
+		
+		
+	<div class="bloc_event">
+		
+		<h2>La vie de Voltaire</h2>
+		<p class="date_event">09<br/><span class="month_event">mai</span></p>
+
+	</div>
+	
+	<br/>
+	
+	<div class="bloc_event">
+		
+		<h2>Paris autrefois</h2>
+		<p class="date_event">25<br/><span class="month_event">mai</span></p>
+	</div>
+	
+	
+	<br/>
+	
+	<h2 class="spectacles">Spectacles</h2>
+	<p>Vibrez au son des voix qui ont fait de Paris la capitale mondiale de la culture !</p>
+	
+	<div class="bloc_event_spec">
+		
+		<h2>Don Juan</h2>
+		<p class="date_event_spec">09<br/><span class="month_event_spec">mai</span></p>
+
+	</div>
+	
+	<br/>
+	
+	<div class="bloc_event_spec">
+		
+		<h2>Molière</h2>
+		<p class="date_event_spec">25<br/><span class="month_event_spec">mai</span></p>
+	</div>
+	
+	
+	
+	<h2 class="conf">Conférences & débats</h2>
+	<p>Discutez, débatez à l'instar des philosophes et écrivains !</p>
+	
+	<div class="bloc_event_conf">
+		
+		<h2>Don Juan</h2>
+		<p class="date_event_conf">09<br/><span class="month_event_conf">mai</span></p>
+
+	</div>
+	
+	<br/>
+	
+	<div class="bloc_event_conf">
+		
+		<h2>Molière</h2>
+		<p class="date_event_conf">25<br/><span class="month_event_conf">mai</span></p>
+	</div>
+	
+	
+	
+	
+	
+	
+
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<!-- script pour afficher menu de gauche  -->
+	<script text="text/javascript" src="js/menu_gauche.js"></script> 
+
+</body>
+</html>
